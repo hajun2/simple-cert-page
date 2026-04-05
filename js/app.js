@@ -152,13 +152,10 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
   const W = 210, PL = 25, PR = 25, TW = W - PL - PR;
   let y = 20;
 
-  // TODO(human): 아래 generatePDF 함수 전체에서 모든 doc.setFont('helvetica', ...) 호출을
-  // doc.setFont('NanumGothic', 'normal') 로 교체해주세요.
-  // NanumGothic 폰트는 bold 스타일이 별도로 없으므로 모두 'normal'을 사용합니다.
 
   // ─ 제목
   doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('NanumGothic', 'normal');
   doc.text('내용증명 (연서 서명본)', W / 2, y, { align: 'center' });
   y += 10;
 
@@ -168,7 +165,7 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
 
   // ─ 문서 정보
   doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont('NanumGothic', 'normal');
   const metaLines = [
     ['수신', '○○○ 귀하'],
     ['발신', '연서인 일동 (총 100명)'],
@@ -176,9 +173,9 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
     ['작성일', formatDate(new Date())],
   ];
   metaLines.forEach(([k, v]) => {
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('NanumGothic', 'normal');
     doc.text(`${k}:`, PL, y);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('NanumGothic', 'normal');
     doc.text(v, PL + 18, y);
     y += 6;
   });
@@ -219,12 +216,12 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
 
   // ─ 서명자 정보
   doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('NanumGothic', 'normal');
   doc.text('서명자 정보', PL, y);
   y += 8;
 
   doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont('NanumGothic', 'normal');
   const signerInfo = [
     ['이름', name],
     ['휴대폰', phone],
@@ -233,16 +230,16 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
     ['문서 ID', docId],
   ];
   signerInfo.forEach(([k, v]) => {
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('NanumGothic', 'normal');
     doc.text(`${k}:`, PL, y);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('NanumGothic', 'normal');
     doc.text(v, PL + 24, y);
     y += 6;
   });
   y += 8;
 
   // ─ 서명 이미지
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('NanumGothic', 'normal');
   doc.setFontSize(9);
   doc.text('서명:', PL, y);
   y += 4;
