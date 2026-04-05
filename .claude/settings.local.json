@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Skill(update-config)"
+      "Skill(update-config)",
+      "Bash(npx:*)",
+      "Bash(curl -fL \"https://github.com/google/fonts/raw/main/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf\" -o /tmp/NotoSansKR.ttf)",
+      "Read(//tmp/**)",
+      "Bash(curl -fL \"https://github.com/google/fonts/raw/main/ofl/nanumgothic/NanumGothic-Regular.ttf\" -o /tmp/NanumGothic.ttf)",
+      "Bash(node:*)"
     ]
   },
   "outputStyle": "Learning"

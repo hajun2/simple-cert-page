@@ -152,7 +152,10 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
   const W = 210, PL = 25, PR = 25, TW = W - PL - PR;
   let y = 20;
 
-  // 한글 폰트가 없으므로 텍스트 일부는 영문 혼용 (실제 배포시 한글 폰트 추가 권장)
+  // TODO(human): 아래 generatePDF 함수 전체에서 모든 doc.setFont('helvetica', ...) 호출을
+  // doc.setFont('NanumGothic', 'normal') 로 교체해주세요.
+  // NanumGothic 폰트는 bold 스타일이 별도로 없으므로 모두 'normal'을 사용합니다.
+
   // ─ 제목
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
