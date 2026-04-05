@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /signatures/{doc} {
+      // 누구나 읽기 가능 (서명 수 표시용)
+      allow read: if true;
+      // 누구나 쓰기 가능 (서명 제출용)
+      allow create: if true;
+      // 삭제는 금지 (관리자도 Firebase 콘솔에서만)
+      // ※ 관리자 삭제 기능 허용하려면 아래로 변경:
+      // allow delete: if true;
+      allow update, delete: if false;
+    }
+  }
+}

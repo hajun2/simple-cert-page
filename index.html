@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내용증명 전자서명</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- 상단 안내 -->
+    <header class="site-header">
+      <div class="header-inner">
+        <span class="badge">전자서명 요청</span>
+        <h1>내용증명 연서 서명</h1>
+        <p>아래 문서 내용을 확인하신 후 하단 서명란에 서명해 주세요.</p>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ① 내용증명 문서 본문 -->
+      <section class="document-paper" id="document-body">
+        <div class="doc-stamp">내 용 증 명</div>
+
+        <table class="doc-meta">
+          <tr>
+            <th>수 신</th>
+            <td id="recipient">○○○ 귀하</td>
+          </tr>
+          <tr>
+            <th>발 신</th>
+            <td id="sender">연서인 일동 (총 <strong>100</strong>명)</td>
+          </tr>
+          <tr>
+            <th>제 목</th>
+            <td id="subject">○○○에 관한 내용증명</td>
+          </tr>
+          <tr>
+            <th>작성일</th>
+            <td id="doc-date"></td>
+          </tr>
+        </table>
+
+        <div class="doc-divider"></div>
+
+        <div class="doc-body">
+          <p class="doc-greeting">귀하의 발전을 기원합니다.</p>
+          <p>
+            <!-- ✏️ 여기에 실제 내용증명 본문을 입력하세요 -->
+            본 내용증명은 아래와 같은 사실을 통지하고자 작성되었습니다.
+          </p>
+          <p>
+            1. 우리는 오드힐 하우스에 대한 요구를 다음과 같이 주장합니다.
+          </p>
+          <p>
+            2. [구체적 요구사항 기재란]
+          </p>
+          <p>
+            3. 본 통지서를 수령하신 날로부터 ○일 이내에 위 사항에 대하여 서면으로 회신하여 주시기 바랍니다.
+          </p>
+          <p>
+            만약 위 기한까지 적절한 조치가 이루어지지 않을 경우, 법적 조치를 포함한 가능한 모든 수단을 강구할 것임을 통보합니다.
+          </p>
+          <p class="doc-closing">
+            위와 같이 통지합니다.
+          </p>
+        </div>
+
+        <div class="doc-divider"></div>
+
+        <p class="doc-signers-title">명 단</p>
+        <p class="doc-signers-sub">이하 서명자 명단은 별지와 같습니다.</p>
+      </section>
+
+      <!-- ② 서명 진행 상황 -->
+      <section class="progress-section">
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <p class="progress-label">현재 <strong id="sign-count">0</strong> / 100명 서명 완료</p>
+      </section>
+
+      <!-- ③ 서명 폼 -->
+      <section class="sign-section" id="sign-section">
+        <h2 class="sign-title">서명하기</h2>
+
+        <div id="already-signed-msg" class="notice-box" style="display:none">
+          ✅ 이미 서명하셨습니다. 감사합니다.
+        </div>
+
+        <form id="sign-form" autocomplete="off">
+          <div class="form-row">
+            <label>이름 <span class="required">*</span></label>
+            <input type="text" id="input-name" placeholder="홍길동" maxlength="20" required />
+          </div>
+          <div class="form-row">
+            <label>휴대폰 번호 <span class="required">*</span></label>
+            <input type="tel" id="input-phone" placeholder="010-0000-0000" maxlength="13" required />
+          </div>
+
+          <div class="form-row">
+            <label>서명 <span class="required">*</span> <span class="label-sub">아래 칸에 마우스 또는 손가락으로 서명해 주세요</span></label>
+            <div class="signature-wrap">
+              <canvas id="signature-canvas"></canvas>
+              <button type="button" class="btn-clear-sig" id="btn-clear">지우기</button>
+            </div>
+          </div>
+
+          <div class="form-row consent-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="consent-check" required />
+              <span>위 내용증명 문서 내용을 확인하였으며, 서명에 동의합니다.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-submit">
+            <span id="btn-text">서명 제출하기</span>
+            <span id="btn-loading" style="display:none">제출 중...</span>
+          </button>
+        </form>
+
+        <!-- 제출 완료 메시지 -->
+        <div id="success-msg" class="success-box" style="display:none">
+          <div class="success-icon">✓</div>
+          <h3>서명이 완료되었습니다</h3>
+          <p>서명하신 내용이 안전하게 저장되었습니다.</p>
+          <button class="btn-download" id="btn-download-pdf">내 서명 PDF 저장</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>본 전자서명은 「전자서명법」에 따라 법적 효력을 가집니다.</p>
+      <p>서명자 정보(이름, 연락처, IP, 서명 일시)는 법적 증거 목적으로만 보관됩니다.</p>
+      <a href="admin.html" class="admin-link">관리자</a>
+    </footer>
+  </div>
+
+  <!-- 라이브러리 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.5/dist/signature_pad.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Firebase v10 compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

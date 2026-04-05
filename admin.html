@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 대시보드 | 내용증명 서명</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="admin-page">
+
+  <!-- 로그인 화면 -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-box">
+      <h2>관리자 로그인</h2>
+      <input type="password" id="admin-pw" placeholder="비밀번호 입력" />
+      <button id="btn-login" class="btn-submit">로그인</button>
+      <p id="login-error" class="error-msg" style="display:none">비밀번호가 틀렸습니다.</p>
+    </div>
+  </div>
+
+  <!-- 대시보드 -->
+  <div id="dashboard" style="display:none">
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <h1>서명 관리자 대시보드</h1>
+        <div class="admin-actions">
+          <button class="btn-export" id="btn-export-csv">CSV 내보내기</button>
+          <button class="btn-export primary" id="btn-export-pdf">통합 PDF 생성</button>
+          <a href="index.html" class="btn-back">← 서명 페이지</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-body">
+      <!-- 요약 카드 -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-label">총 서명 수</span>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-num" id="stat-remain">100</span>
+          <span class="stat-label">미서명 (목표 100)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-today">0</span>
+          <span class="stat-label">오늘 서명</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-pct">0%</span>
+          <span class="stat-label">달성률</span>
+        </div>
+      </div>
+
+      <!-- 프로그레스 -->
+      <div class="admin-progress-wrap">
+        <div class="progress-bar-wrap large">
+          <div class="progress-bar-fill" id="admin-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- 서명자 테이블 -->
+      <div class="table-section">
+        <div class="table-header">
+          <h2>서명자 목록</h2>
+          <input type="text" id="search-input" placeholder="이름 또는 번호 검색..." class="search-input" />
+        </div>
+        <div class="table-wrap">
+          <table class="signer-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>휴대폰</th>
+                <th>서명 일시</th>
+                <th>IP 주소</th>
+                <th>서명</th>
+                <th>삭제</th>
+              </tr>
+            </thead>
+            <tbody id="signer-tbody">
+              <tr><td colspan="7" class="loading-row">불러오는 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 라이브러리 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
