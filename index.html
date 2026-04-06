@@ -48,26 +48,8 @@
         <div class="doc-divider"></div>
 
         <div class="doc-body">
-          <p class="doc-greeting">귀하의 발전을 기원합니다.</p>
-          <p>
-            <!-- ✏️ 여기에 실제 내용증명 본문을 입력하세요 -->
-            본 내용증명은 아래와 같은 사실을 통지하고자 작성되었습니다.
-          </p>
-          <p>
-            1. 우리는 오드힐 하우스에 대한 요구를 다음과 같이 주장합니다.
-          </p>
-          <p>
-            2. [구체적 요구사항 기재란]
-          </p>
-          <p>
-            3. 본 통지서를 수령하신 날로부터 ○일 이내에 위 사항에 대하여 서면으로 회신하여 주시기 바랍니다.
-          </p>
-          <p>
-            만약 위 기한까지 적절한 조치가 이루어지지 않을 경우, 법적 조치를 포함한 가능한 모든 수단을 강구할 것임을 통보합니다.
-          </p>
-          <p class="doc-closing">
-            위와 같이 통지합니다.
-          </p>
+          <p>오드힐의수의 배정된 배당을 이해하고 차별화된 관리를 위해, 개인 배당의 기준이 된 수익 사업과 금융 사업의 손익 결산 처리, 이에 대한 사인 JC 및 성명 부속, 그리고 계약자들의 공익 활동에 대한 현안 기타 사항을 공유하고, 적절하게 협력하게 됩니다. 또한 향후 활동 계획을 함께 논의하고 결정할 예정입니다. 이에 따른 개인의 권리 및 의무 사항에 대한 세부 사항을 공유하고 서로 합의하도록 합니다.</p>
+          <p class="doc-note"><em>기재하신 이메일주소(또는 성명)으로 추후 서면으로 상세 설명을 요청하시고 부담 없이 문의해 주시길 바랍니다. 서명 완료 시 상기내용에 동의하는 것으로 간주됩니다. 이에 따른 개인의 권리 및 의무사항이 기재된 별첨 문서를 통해 주시기 바랍니다.</em></p>
         </div>
 
         <div class="doc-divider"></div>
@@ -102,6 +84,26 @@
             <input type="tel" id="input-phone" placeholder="010-0000-0000" maxlength="13" required />
           </div>
 
+          <div class="form-row">
+            <label>이메일 <span class="required">*</span></label>
+            <input type="email" id="input-email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-row">
+            <label>계약자 여부 <span class="required">*</span></label>
+            <select id="input-contractor" required>
+              <option value="">선택해 주세요</option>
+              <option value="Y">Y (계약자)</option>
+              <option value="N">N (배정자)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>취소 확정 여부 <span class="required">*</span></label>
+            <select id="input-cancel" required>
+              <option value="">선택해 주세요</option>
+              <option value="Y">Y</option>
+              <option value="N">N</option>
+            </select>
+          </div>
           <div class="form-row">
             <label>서명 <span class="required">*</span> <span class="label-sub">아래 칸에 마우스 또는 손가락으로 서명해 주세요</span></label>
             <div class="signature-wrap">

@@ -81,11 +81,17 @@ form.addEventListener('submit', async (e) => {
 
   const name = document.getElementById('input-name').value.trim();
   const phone = document.getElementById('input-phone').value.trim();
+  const email = document.getElementById('input-email').value.trim();
+  const isContractor = document.getElementById('input-contractor').value;
+  const cancelConfirmed = document.getElementById('input-cancel').value;
   const consent = document.getElementById('consent-check').checked;
 
   // 유효성 검사
   if (!name) return alert('이름을 입력해 주세요.');
   if (phone.replace(/\D/g, '').length < 10) return alert('올바른 휴대폰 번호를 입력해 주세요.');
+  if (!email) return alert('이메일을 입력해 주세요.');
+  if (!isContractor) return alert('계약자 여부를 선택해 주세요.');
+  if (!cancelConfirmed) return alert('취소 확정 여부를 선택해 주세요.');
   if (signaturePad.isEmpty()) return alert('서명을 입력해 주세요.');
   if (!consent) return alert('동의 체크박스를 확인해 주세요.');
 
@@ -109,6 +115,9 @@ form.addEventListener('submit', async (e) => {
   const record = {
     name,
     phone,
+    email,
+    isContractor,
+    cancelConfirmed,
     signatureImage,
     signedAt: firebase.firestore.Timestamp.fromDate(signedAt),
     ip,
@@ -122,7 +131,7 @@ form.addEventListener('submit', async (e) => {
     localStorage.setItem(SIGNED_KEY, docRef.id);
 
     // PDF 생성 후 다운로드
-    generatePDF({ name, phone, signedAt, ip, signatureImage, docId: docRef.id });
+    generatePDF({ name, phone, email, isContractor, cancelConfirmed, signedAt, ip, signatureImage, docId: docRef.id });
 
     // UI 전환
     form.style.display = 'none';
@@ -131,7 +140,7 @@ form.addEventListener('submit', async (e) => {
 
     // PDF 다운로드 버튼
     document.getElementById('btn-download-pdf').addEventListener('click', () => {
-      generatePDF({ name, phone, signedAt, ip, signatureImage, docId: docRef.id });
+      generatePDF({ name, phone, email, isContractor, cancelConfirmed, signedAt, ip, signatureImage, docId: docRef.id });
     });
 
   } catch (err) {
@@ -145,7 +154,7 @@ form.addEventListener('submit', async (e) => {
 });
 
 // ── PDF 생성 ──────────────────────────────────────────────────
-function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
+function generatePDF({ name, phone, email, isContractor, cancelConfirmed, signedAt, ip, signatureImage, docId }) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
@@ -188,21 +197,16 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
   // ─ 본문
   doc.setFontSize(9);
   const bodyText = [
-    '귀하의 발전을 기원합니다.',
+    '오드힐의수의 배정된 배당을 이해하고 차별화된 관리를 위해, 개인 배당의 기준이 된',
+    '수익 사업과 금융 사업의 손익 결산 처리, 이에 대한 사인 JC 및 성명 부속, 그리고',
+    '계약자들의 공익 활동에 대한 현안 기타 사항을 공유하고, 적절하게 협력하게 됩니다.',
+    '또한 향후 활동 계획을 함께 논의하고 결정할 예정입니다. 이에 따른 개인의 권리 및',
+    '의무 사항에 대한 세부 사항을 공유하고 서로 합의하도록 합니다.',
     '',
-    '본 내용증명은 아래와 같은 사실을 통지하고자 작성되었습니다.',
-    '',
-    '1. 우리 연서인 일동은 [사실관계 기재란] 에 관하여 다음과 같이 주장합니다.',
-    '',
-    '2. [구체적 요구사항 기재란]',
-    '',
-    '3. 본 통지서를 수령하신 날로부터 ○일 이내에 위 사항에 대하여 서면으로 회신하여',
-    '   주시기 바랍니다.',
-    '',
-    '만약 위 기한까지 적절한 조치가 이루어지지 않을 경우, 법적 조치를 포함한',
-    '가능한 모든 수단을 강구할 것임을 통보합니다.',
-    '',
-    '위와 같이 통지합니다.',
+    '기재하신 이메일주소(또는 성명)으로 추후 서면으로 상세 설명을 요청하시고',
+    '부담 없이 문의해 주시길 바랍니다. 서명 완료 시 상기내용에 동의하는 것으로',
+    '간주됩니다. 이에 따른 개인의 권리 및 의무사항이 기재된 별첨 문서를 통해',
+    '주시기 바랍니다.',
   ];
   bodyText.forEach(line => {
     doc.text(line, PL, y);
@@ -225,6 +229,9 @@ function generatePDF({ name, phone, signedAt, ip, signatureImage, docId }) {
   const signerInfo = [
     ['이름', name],
     ['휴대폰', phone],
+    ['이메일', email],
+    ['계약자 여부', isContractor],
+    ['취소 확정', cancelConfirmed],
     ['서명 일시', formatDateTime(signedAt)],
     ['IP 주소', ip],
     ['문서 ID', docId],
