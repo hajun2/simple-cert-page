@@ -112,8 +112,7 @@ body {
 }
 
 .doc-body { font-family: 'Noto Serif KR', serif; font-size: 0.92rem; }
-/* .doc-body p { margin-bottom: 16px; text-indent: 1em; } */
-.doc-body p { margin-bottom: 16px; line-height: 1.5em; }
+.doc-body p { margin-bottom: 16px; text-indent: 1em; }
 .doc-greeting { font-weight: 600; }
 .doc-closing { text-align: right; margin-top: 32px; }
 
