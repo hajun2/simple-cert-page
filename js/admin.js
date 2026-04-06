@@ -154,7 +154,7 @@ function generateCombinedPDF(signers) {
   // ── 1페이지: 내용증명 문서 본문 ──────────────────────────────
   let y = 20;
   doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('NanumGothic', 'normal');
   doc.text('내용증명', W / 2, y, { align: 'center' });
   y += 10;
   doc.setLineWidth(0.8);
@@ -169,8 +169,8 @@ function generateCombinedPDF(signers) {
   ];
   doc.setFontSize(9);
   metaLines.forEach(([k, v]) => {
-    doc.setFont('helvetica', 'bold'); doc.text(`${k}:`, PL, y);
-    doc.setFont('helvetica', 'normal'); doc.text(v, PL + 18, y);
+    doc.setFont('NanumGothic', 'normal'); doc.text(`${k}:`, PL, y);
+    doc.setFont('NanumGothic', 'normal'); doc.text(v, PL + 18, y);
     y += 6;
   });
   y += 4;
@@ -202,11 +202,11 @@ function generateCombinedPDF(signers) {
   doc.addPage();
   y = 20;
   doc.setFontSize(13);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont('NanumGothic', 'normal');
   doc.text('연서인 명단', W / 2, y, { align: 'center' });
   y += 4;
   doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont('NanumGothic', 'normal');
   doc.setTextColor(100);
   doc.text(`총 ${signers.length}명 | 출력일시: ${formatDateTime(new Date())}`, W / 2, y + 4, { align: 'center' });
   doc.setTextColor(0);
@@ -230,9 +230,9 @@ function generateCombinedPDF(signers) {
     }
 
     doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('NanumGothic', 'normal');
     doc.text(`${i + 1}. ${s.name}`, x, y);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('NanumGothic', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(100);
     doc.text(s.phone, x, y + 4);
